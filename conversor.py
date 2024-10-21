@@ -9,7 +9,7 @@ def converter_para_utm(lon, lat):
     easting, northing = transformer.transform(lon, lat)
     return easting, northing
 
-# Ler o arquivo CSV com separador ',' e com colunas na ordem 'Longitude;Latitude'
+# Ler o arquivo CSV com separador ','
 df = pd.read_csv('conversor.csv', sep=',')
 
 # Aplicar a conversão para cada linha do DataFrame e armazenar em novas colunas
@@ -17,7 +17,7 @@ df[['Easting', 'Northing']] = df.apply(
     lambda row: converter_para_utm(row['Longitude'], row['Latitude']), axis=1, result_type='expand'
 )
 
-# Salvar o resultado em um novo arquivo CSV com ';' como separador
+# Salvar o resultado em um novo arquivo CSV com ',' como separador
 df.to_csv('saida.csv', sep=',', index=False)
 
 print("Conversão concluída e salva no arquivo 'saida.csv'.")
